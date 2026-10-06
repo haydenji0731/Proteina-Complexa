@@ -127,6 +127,9 @@ filter:
 # Used for scoring samples or guiding search.
 reward_model:
   _target_: "proteinfoundation.rewards.base_reward.CompositeRewardModel"
+  weights:
+    af2folding: 1.0
+    hotspot_proximity: 1.0
   reward_models:
     af2folding:
       _target_: "proteinfoundation.rewards.alphafold2_reward.AF2RewardModel"
@@ -150,6 +153,15 @@ reward_model:
         avg_ipsae_10: 0.0
       seed: 0
       device_id: null  # Auto-detects current CUDA device
+
+    # Distance from the binder to the nearest residue in hotspot_residues.
+    # total = -max(0, distance - 4). A contact within 4 Å adds nothing.
+    hotspot_proximity:
+      _target_: proteinfoundation.rewards.hotspot_proximity_reward.HotspotProximityRewardModel
+      contact_cutoff: 4.0
+      max_excess: 20.0
+      target_chain: A
+      binder_chain: B
 
     # # TMOL reward model (optional)
     # tmol:

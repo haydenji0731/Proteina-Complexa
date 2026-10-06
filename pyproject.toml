@@ -77,6 +77,9 @@ allow-direct-references = true
 extra-index-url = [
     "https://download.pytorch.org/whl/cu126",
 ]
+# The CUDA index also publishes tqdm, but not 4.66.4. Without this, uv
+# never looks at PyPI for that pin. Same flag as env/build_uv_env.sh.
+index-strategy = "unsafe-best-match"
 # Package configuration - using src/ layout
 # Main package lives in src/proteinfoundation/
 # Without installation, add src/ to PYTHONPATH for imports to work
