@@ -154,8 +154,9 @@ reward_model:
       seed: 0
       device_id: null  # Auto-detects current CUDA device
 
-    # Distance from the binder to the nearest residue in hotspot_residues.
-    # total = -max(0, distance - 4). A contact within 4 Å adds nothing.
+    # Mean over hotspots of -min(20, max(0, distance - 4)). Each hotspot is its
+    # chain letter plus its residue number on that chain. A contact within 4 Å
+    # adds nothing for that hotspot; the others are still scored.
     hotspot_proximity:
       _target_: proteinfoundation.rewards.hotspot_proximity_reward.HotspotProximityRewardModel
       contact_cutoff: 4.0

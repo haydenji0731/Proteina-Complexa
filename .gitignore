@@ -5,8 +5,11 @@ slurm_run_*/
 *.tar
 __pycache__/
 
+ckpts
 lightning_logs
-
+generate.sh
+configs/*
+*yaml
 .ipynb_checkpoints/
 
 results
